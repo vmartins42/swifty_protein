@@ -149,7 +149,6 @@ class SceneViewController: UIViewController {
             if subContents.count != 0 {
                 switch subContents[0] {
                 case "ATOM":
-                    print(subContents)
                     self.createAtom(subContents)
                 case "CONECT":
                     if modelActif == ModelList.BS {
