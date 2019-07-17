@@ -19,7 +19,8 @@ class SceneViewController: UIViewController {
     var isSquare : Bool = false
     var modelActif = ModelList.BS
     var lvlAntialiasing = SCNAntialiasingMode.none
-    
+    @IBOutlet weak var antilabel: UILabel!
+    @IBOutlet weak var atomNameLabel: UILabel!
     var name : String = ""
     var contentPDB : [String] = [] {
         didSet {
@@ -49,6 +50,52 @@ class SceneViewController: UIViewController {
         self.present(activityVC, animated: true, completion: nil)
     }
     
+    
+    
+    
+    
+    @IBAction func antialisingSlide(_ sender: UISlider) {
+        var newLvlAntialiasing = SCNAntialiasingMode.none
+        var text = ""
+        print(sender.value)
+        switch Int(sender.value) {
+        case 4:
+            newLvlAntialiasing = .multisampling4X
+            text = "X4"
+        case 2...4:
+            newLvlAntialiasing = .multisampling2X
+            text = "X2"
+        default:
+            newLvlAntialiasing = .none
+            text = "None"
+        }
+        if (self.lvlAntialiasing != newLvlAntialiasing) {
+            print("ICI")
+            self.lvlAntialiasing = newLvlAntialiasing
+            self.renderScene()
+            self.antilabel.text = "Antialiasing : \(text)"
+        }
+    }
+    
+    @objc func handleTap(rec: UITapGestureRecognizer){
+        if rec.state == .ended {
+            let location: CGPoint = rec.location(in: self.SCNView)
+            let hits = self.SCNView.hitTest(location, options: nil)
+            if !hits.isEmpty{
+                if let position = hits.first?.node.position {
+                    if let atom = allAtoms.values.filter({ $0.position! == position }).first {
+                        self.atomNameLabel.text = atom.id
+                        if let color = atom.atom?.firstMaterial?.diffuse.contents as? UIColor {
+                            self.atomNameLabel.textColor = color
+                        }
+                    }
+                }
+            } else {
+                self.atomNameLabel.text = ""
+            }
+        }
+    }
+    
     func sceneSetup(scene: SCNScene) {
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
@@ -68,7 +115,50 @@ class SceneViewController: UIViewController {
             self.SCNView.autoenablesDefaultLighting = true
             self.SCNView.scene = scene
             self.SCNView.contentScaleFactor = 1
-//            self.SCNView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(rec:))))
+            self.SCNView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(rec:))))
+        }
+    }
+    
+    func renderScene () {
+        DispatchQueue.main.async {
+            self.allAtoms.removeAll()
+            self.molecule.parent?.enumerateChildNodes {
+                (node, stop) in
+                node.parent?.enumerateChildNodes {
+                    (subNode, stop) in
+                    subNode.removeFromParentNode()
+                }
+                node.removeFromParentNode()
+            }
+            self.SCNView.scene?.rootNode.enumerateChildNodes {
+                (node, stop) in
+                node.parent?.enumerateChildNodes {
+                    (subNode, stop) in
+                    subNode.removeFromParentNode()
+                }
+                node.removeFromParentNode()
+            }
+            self.parseScene(content: self.contentPDB)
+            self.sceneSetup(scene: self.SCNView.scene!)
+        }
+    }
+    
+    func parseScene(content: [String]) {
+        for line in content {
+            var subContents = line.components(separatedBy: " ").filter({ $0 != "" })
+            if subContents.count != 0 {
+                switch subContents[0] {
+                case "ATOM":
+                    print(subContents)
+                    self.createAtom(subContents)
+                case "CONECT":
+                    if modelActif == ModelList.BS {
+                        self.drawLine(subContents)
+                    }
+                default:
+                    break
+                }
+            }
         }
     }
     
@@ -155,28 +245,9 @@ class SceneViewController: UIViewController {
             self.molecule.addChildNode(node2)
         }
     
-    func parseScene(content: [String]) {
-        for line in content {
-            var subContents = line.components(separatedBy: " ").filter({ $0 != "" })
-            if subContents.count != 0 {
-                switch subContents[0] {
-                case "ATOM":
-                    print(subContents)
-                    self.createAtom(subContents)
-                case "CONECT":
-                    if modelActif == ModelList.BS {
-                        self.drawLine(subContents)
-                    }
-                default:
-                    break
-                }
-            }
-        }
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.antilabel.text = "Antialiasing: \(self.lvlAntialiasing.hashValue)"
     }
 
     override func didReceiveMemoryWarning() {

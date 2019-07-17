@@ -237,6 +237,28 @@
                                     <action selector="shareButton:" destination="X1G-uL-ZAA" eventType="touchUpInside" id="MS9-JR-zeH"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="4" translatesAutoresizingMaskIntoConstraints="NO" id="Nhq-jV-4SZ">
+                                <rect key="frame" x="18" y="597" width="181" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="177" id="4R6-Rx-KXh"/>
+                                    <constraint firstAttribute="height" constant="50" id="isP-Ao-97O"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="antialisingSlide:" destination="X1G-uL-ZAA" eventType="valueChanged" id="Q5L-IM-Dqm"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Antialising" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2a-Lr-knQ">
+                                <rect key="frame" x="69" y="568.5" width="79" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AtomName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PSW-jc-vGq">
+                                <rect key="frame" x="20" y="84" width="85.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -244,16 +266,24 @@
                             <constraint firstItem="xke-9x-QZt" firstAttribute="bottom" secondItem="5Xm-oS-isv" secondAttribute="bottom" id="CvV-o1-4jX"/>
                             <constraint firstItem="xke-9x-QZt" firstAttribute="trailing" secondItem="2mr-cG-y3z" secondAttribute="trailing" id="DLs-Ye-WR2"/>
                             <constraint firstItem="xke-9x-QZt" firstAttribute="leading" secondItem="XX1-Ui-cNo" secondAttribute="leading" id="J7T-Jr-vZ0"/>
+                            <constraint firstItem="Nhq-jV-4SZ" firstAttribute="leading" secondItem="5Xm-oS-isv" secondAttribute="leading" constant="20" id="KHQ-zK-7do"/>
+                            <constraint firstItem="Nhq-jV-4SZ" firstAttribute="top" secondItem="t2a-Lr-knQ" secondAttribute="bottom" constant="8" symbolic="YES" id="L8e-Y2-yTM"/>
+                            <constraint firstItem="PSW-jc-vGq" firstAttribute="top" secondItem="2mr-cG-y3z" secondAttribute="bottom" constant="20" id="LTd-Q8-DBn"/>
                             <constraint firstItem="5Xm-oS-isv" firstAttribute="bottom" secondItem="9EX-4W-OgP" secondAttribute="bottom" constant="20" id="WKG-pL-veO"/>
                             <constraint firstItem="2mr-cG-y3z" firstAttribute="top" secondItem="5Xm-oS-isv" secondAttribute="top" id="Wgv-Nx-SW6"/>
                             <constraint firstItem="5Xm-oS-isv" firstAttribute="trailing" secondItem="9EX-4W-OgP" secondAttribute="trailing" constant="20" id="XDh-71-P25"/>
+                            <constraint firstItem="t2a-Lr-knQ" firstAttribute="centerX" secondItem="Nhq-jV-4SZ" secondAttribute="centerX" id="Zfa-Sf-vTc"/>
+                            <constraint firstItem="PSW-jc-vGq" firstAttribute="leading" secondItem="5Xm-oS-isv" secondAttribute="leading" constant="20" id="lje-wy-2Gc"/>
                             <constraint firstItem="xke-9x-QZt" firstAttribute="leading" secondItem="2mr-cG-y3z" secondAttribute="leading" id="myo-Br-Ky6"/>
+                            <constraint firstItem="5Xm-oS-isv" firstAttribute="bottom" secondItem="Nhq-jV-4SZ" secondAttribute="bottom" constant="20" id="tXA-c1-llE"/>
                             <constraint firstAttribute="trailing" secondItem="xke-9x-QZt" secondAttribute="trailing" id="zqP-1S-haJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5Xm-oS-isv"/>
                     </view>
                     <connections>
                         <outlet property="SCNView" destination="xke-9x-QZt" id="61q-RD-pGH"/>
+                        <outlet property="antilabel" destination="t2a-Lr-knQ" id="tn7-jV-RgW"/>
+                        <outlet property="atomNameLabel" destination="PSW-jc-vGq" id="Hl7-rs-JaS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKZ-AC-CSm" userLabel="First Responder" sceneMemberID="firstResponder"/>
