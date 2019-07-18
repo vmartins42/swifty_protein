@@ -19,6 +19,7 @@ class LigandsViewController: UIViewController, UITableViewDataSource, UITableVie
     var searching = false
     var myIndex = 0
     var myElemTab = ""
+    var showAlert : Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class LigandsViewController: UIViewController, UITableViewDataSource, UITableVie
         }catch let error as NSError {
             print("pas encore", error)
         }
+        self.showAlert = false
         arrayLigands = ligandsFile.lines
     }
     
@@ -59,7 +61,6 @@ class LigandsViewController: UIViewController, UITableViewDataSource, UITableVie
             myElemTab = arrayLigands[indexPath.row]
         }
         let name = myElemTab
-        print(name)
         if let nurl = NSURL(string: "https://files.rcsb.org/ligands/download/\(name)_model.pdb") {
             print(nurl)
             DispatchQueue.main.async {
@@ -72,17 +73,18 @@ class LigandsViewController: UIViewController, UITableViewDataSource, UITableVie
                 if error != nil {
                     print(error!.localizedDescription)
                 } else if let d = data {
-                    print(String(decoding: d, as: UTF8.self).components(separatedBy: "\n"))
-                    //                        if String(decoding: d, as: UTF8.self).contains("404") {
-                    //                            DispatchQueue.main.async {
-                    //                                self.viewDidAppear(true)
-                    //                            }
-                    //                        }
-                    //                        else {
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "ligandSegue", sender: (name: name, data: String(decoding: d, as: UTF8.self).components(separatedBy: "\n")))
+                    print("ici",String(decoding: d, as: UTF8.self).components(separatedBy: "\n"))
+                    if String(decoding: d, as: UTF8.self).contains("404") {
+                        self.showAlert = true
+                        DispatchQueue.main.async {
+                            self.viewDidAppear(true)
+                        }
                     }
-                    //                        }
+                    else {
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: "ligandSegue", sender: (name: name, data: String(decoding: d, as: UTF8.self).components(separatedBy: "\n")))
+                        }
+                    }
                 }
                 DispatchQueue.main.async {
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -110,6 +112,18 @@ class LigandsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     @IBAction func unwindToLigandsList(segue: UIStoryboardSegue) {
         print("IM BACK")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.showAlert == true {
+            self.showAlert = false
+            let alertController = UIAlertController(title: "Error 👨🏻‍🔬", message: "We can't find this Ligand actually! 🙀", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK 😭", style: .cancel, handler: nil))
+            present(alertController, animated: true, completion: nil)
+            
+        }
     }
     
     override func didReceiveMemoryWarning() {

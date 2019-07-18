@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         if loginField.text == "root" && passwordField.text == "root"{
             self.performSegue(withIdentifier: "affTabSegue", sender: self)
         } else {
-            Alert(message: "Bad login/password, try again ")
+            Alert(title: "Error 👨🏻‍🔬 ", message: "Bad login/password, try again 💪🏼")
         }
     }
     
@@ -33,18 +33,18 @@ class ViewController: UIViewController {
                 if successFul {
                     self.performSegue(withIdentifier: "affTabSegue", sender: self)
                 } else {
-                    self.Alert(message: "Touch ID Authentication Failed")
+                    self.Alert(title: "Error 👨🏻‍🔬", message: "Touch ID Authentication Failed 😿")
                 }
             }
         } else {
-            Alert(message: "Touch ID not available. Try to Login ")
+            Alert(title: "Error 👨🏻‍🔬", message: "Touch ID not available. Try to Login ? 🤔")
         }
     }
     
-    func Alert(message: String)
+    func Alert(title: String, message: String)
     {
-        let alert = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        let okbutton = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let okbutton = UIAlertAction(title: "OK 😭", style: .default, handler: nil)
         alert.addAction(okbutton)
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }

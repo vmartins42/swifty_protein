@@ -57,7 +57,6 @@ class SceneViewController: UIViewController {
     @IBAction func antialisingSlide(_ sender: UISlider) {
         var newLvlAntialiasing = SCNAntialiasingMode.none
         var text = ""
-        print(sender.value)
         switch Int(sender.value) {
         case 4:
             newLvlAntialiasing = .multisampling4X
@@ -70,7 +69,6 @@ class SceneViewController: UIViewController {
             text = "None"
         }
         if (self.lvlAntialiasing != newLvlAntialiasing) {
-            print("ICI")
             self.lvlAntialiasing = newLvlAntialiasing
             self.renderScene()
             self.antilabel.text = "Antialiasing : \(text)"
