@@ -15,8 +15,8 @@ class SceneViewController: UIViewController {
 
     var molecule = SCNNode()
     var isActiveHydrogens = false
-    var allAtoms: [Int:Atoms] = [:]
     var isSquare : Bool = false
+    var allAtoms: [Int:Atoms] = [:]
     var modelActif = ModelList.BS
     var lvlAntialiasing = SCNAntialiasingMode.none
     @IBOutlet weak var antilabel: UILabel!
@@ -106,7 +106,7 @@ class SceneViewController: UIViewController {
         cameraNode.look(at: (allAtoms.values.first?.position!)!)
         scene.rootNode.addChildNode(cameraNode)
         scene.rootNode.addChildNode(molecule)
-        scene.background.contents = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1.0)
+        scene.background.contents = UIColor(red:0.63, green:0.63, blue:0.63, alpha:1.0)
         if self.SCNView != nil {
             self.SCNView.antialiasingMode = self.lvlAntialiasing
             self.SCNView.allowsCameraControl = true
@@ -140,6 +140,22 @@ class SceneViewController: UIViewController {
             self.sceneSetup(scene: self.SCNView.scene!)
         }
     }
+    
+    @IBOutlet weak var activHydrogene: UIButton!
+    @IBAction func activeHydrogens(_ sender: Any) {
+        self.isActiveHydrogens = self.isActiveHydrogens == true ? false : true
+        if self.isActiveHydrogens == true {
+            self.activHydrogene.setTitle("H : ON", for: .normal)
+            self.activHydrogene.setTitleColor(UIColor.green , for: .normal)
+        }
+        else {
+            self.activHydrogene.setTitle("H : OFF", for: .normal)
+            self.activHydrogene.setTitleColor(UIColor.red , for: .normal)
+        }
+        self.renderScene()
+    }
+    
+    
     
     func parseScene(content: [String]) {
         for line in content {
@@ -245,6 +261,7 @@ class SceneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.antilabel.text = "Antialiasing: \(self.lvlAntialiasing.hashValue)"
+        self.activHydrogene.setTitle("H : OFF", for: .normal)
     }
 
     override func didReceiveMemoryWarning() {

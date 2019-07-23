@@ -49,12 +49,6 @@ class ViewController: UIViewController {
         UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
-//    func showAlertController(_ message: String) {
-//        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-//        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//        present(alertController, animated: true, completion: nil)
-//    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "affTabSegue" {
             if ((segue.destination as? LigandsViewController) != nil) {

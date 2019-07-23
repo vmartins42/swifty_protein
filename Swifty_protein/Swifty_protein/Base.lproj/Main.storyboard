@@ -259,6 +259,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lx2-eF-qr2">
+                                <rect key="frame" x="325" y="84" width="30" height="30"/>
+                                <state key="normal" title="OFF"/>
+                                <connections>
+                                    <action selector="activeHydrogens:" destination="X1G-uL-ZAA" eventType="touchUpInside" id="5NV-Qo-wXn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -269,12 +276,14 @@
                             <constraint firstItem="Nhq-jV-4SZ" firstAttribute="leading" secondItem="5Xm-oS-isv" secondAttribute="leading" constant="20" id="KHQ-zK-7do"/>
                             <constraint firstItem="Nhq-jV-4SZ" firstAttribute="top" secondItem="t2a-Lr-knQ" secondAttribute="bottom" constant="8" symbolic="YES" id="L8e-Y2-yTM"/>
                             <constraint firstItem="PSW-jc-vGq" firstAttribute="top" secondItem="2mr-cG-y3z" secondAttribute="bottom" constant="20" id="LTd-Q8-DBn"/>
+                            <constraint firstItem="lx2-eF-qr2" firstAttribute="top" secondItem="2mr-cG-y3z" secondAttribute="bottom" constant="20" id="S4l-mb-uYI"/>
                             <constraint firstItem="5Xm-oS-isv" firstAttribute="bottom" secondItem="9EX-4W-OgP" secondAttribute="bottom" constant="20" id="WKG-pL-veO"/>
                             <constraint firstItem="2mr-cG-y3z" firstAttribute="top" secondItem="5Xm-oS-isv" secondAttribute="top" id="Wgv-Nx-SW6"/>
                             <constraint firstItem="5Xm-oS-isv" firstAttribute="trailing" secondItem="9EX-4W-OgP" secondAttribute="trailing" constant="20" id="XDh-71-P25"/>
                             <constraint firstItem="t2a-Lr-knQ" firstAttribute="centerX" secondItem="Nhq-jV-4SZ" secondAttribute="centerX" id="Zfa-Sf-vTc"/>
                             <constraint firstItem="PSW-jc-vGq" firstAttribute="leading" secondItem="5Xm-oS-isv" secondAttribute="leading" constant="20" id="lje-wy-2Gc"/>
                             <constraint firstItem="xke-9x-QZt" firstAttribute="leading" secondItem="2mr-cG-y3z" secondAttribute="leading" id="myo-Br-Ky6"/>
+                            <constraint firstItem="5Xm-oS-isv" firstAttribute="trailing" secondItem="lx2-eF-qr2" secondAttribute="trailing" constant="20" id="qEd-Xi-uob"/>
                             <constraint firstItem="5Xm-oS-isv" firstAttribute="bottom" secondItem="Nhq-jV-4SZ" secondAttribute="bottom" constant="20" id="tXA-c1-llE"/>
                             <constraint firstAttribute="trailing" secondItem="xke-9x-QZt" secondAttribute="trailing" id="zqP-1S-haJ"/>
                         </constraints>
@@ -282,6 +291,7 @@
                     </view>
                     <connections>
                         <outlet property="SCNView" destination="xke-9x-QZt" id="61q-RD-pGH"/>
+                        <outlet property="activHydrogene" destination="lx2-eF-qr2" id="FrI-gq-jYJ"/>
                         <outlet property="antilabel" destination="t2a-Lr-knQ" id="tn7-jV-RgW"/>
                         <outlet property="atomNameLabel" destination="PSW-jc-vGq" id="Hl7-rs-JaS"/>
                     </connections>
