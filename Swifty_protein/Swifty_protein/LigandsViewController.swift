@@ -23,6 +23,9 @@ class LigandsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ligandTableView.rowHeight = 75
+        ligandTableView.separatorStyle = .singleLine
 
         let fileURLProject = Bundle.main.url(forResource: "ligands", withExtension: "txt")
         do {

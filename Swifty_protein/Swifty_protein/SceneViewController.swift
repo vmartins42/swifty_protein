@@ -38,7 +38,7 @@ class SceneViewController: UIViewController {
         }
     }
     
-    @IBAction func shareButton(_ sender: UIButton) {
+    @IBAction func shareButton(_ sender: Any) {
         let renderer = UIGraphicsImageRenderer(size: SCNView.bounds.size)
         let image = renderer.image { ctx in
             SCNView.drawHierarchy(in: SCNView.bounds, afterScreenUpdates: false)
@@ -106,7 +106,8 @@ class SceneViewController: UIViewController {
         cameraNode.look(at: (allAtoms.values.first?.position!)!)
         scene.rootNode.addChildNode(cameraNode)
         scene.rootNode.addChildNode(molecule)
-        scene.background.contents = UIColor(red:0.63, green:0.63, blue:0.63, alpha:1.0)
+       // scene.background.contents = UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0)
+        scene.background.contents = UIImage(named: "GradientBlue")
         if self.SCNView != nil {
             self.SCNView.antialiasingMode = self.lvlAntialiasing
             self.SCNView.allowsCameraControl = true

@@ -65,6 +65,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loginField.layer.masksToBounds = true
+        loginField.layer.cornerRadius = 7
+        
+        passwordField.layer.masksToBounds = true
+        passwordField.layer.cornerRadius = 7
+        
+        //authBtn.layer.masksToBounds = true
+        //authBtn.layer.cornerRadius = 5
+        
         let context = LAContext()
         
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
